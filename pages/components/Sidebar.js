@@ -4,6 +4,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MessageIcon from '@material-ui/icons/Message';
 import SearchIcon from '@material-ui/icons/Search';
 import * as EmailValidator from "email-validator"
+
 const Sidebar = () => {
 
     const createChat = () => {
@@ -37,8 +38,7 @@ const Sidebar = () => {
     </Container>
     );
 };
-
-export default Sidebar;
+export default Sidebar
 const Container = styled.div``;
 const Header = styled.div`
     display: flex;
