@@ -4,6 +4,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MessageIcon from '@material-ui/icons/Message';
 import SearchIcon from '@material-ui/icons/Search';
 import * as EmailValidator from "email-validator"
+import { auth, db } from "../../firebase"
+import { useAuthState } from "react-firebase-hooks/auth"
 
 const Sidebar = () => {
 
@@ -13,6 +15,7 @@ const Sidebar = () => {
         
         if(EmailValidator.validate(input)){
             //do somethingEmailValidator
+          
         }
 
     }
@@ -20,7 +23,7 @@ const Sidebar = () => {
     return(
     <Container>
         <Header>
-            <UserAvatar />
+            <UserAvatar onClick={() => auth.signOut()} />
             <IconContainer>
                 <IconButton>
                     <MessageIcon />

@@ -36,7 +36,7 @@ const Container = styled.div`
     height: 100vh;
     margin: 0;
     padding: 0;
-    border: 2px solid red;
+    border: 2px solid rgba(133, 203, 248, 0.2);
 `;
 const PageContainer = styled.div`
     width: 100%;
@@ -48,7 +48,7 @@ const PageContainer = styled.div`
     padding: 0;
     overflow: hidden;
     background-color: rgba(133, 203, 248, 0.2);
-    border: 2px solid red;
+    border: 2px solid rgba(133, 203, 248, 0.2);
 
 `;
 
