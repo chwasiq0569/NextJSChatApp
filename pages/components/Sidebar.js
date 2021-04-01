@@ -7,16 +7,19 @@ import * as EmailValidator from "email-validator"
 import { auth, db } from "../../firebase"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useCollection } from "react-firebase-hooks/firestore"
+import Chat from "./Chat";
 
 const Sidebar = () => {
     const [user] = useAuthState(auth)
-    const userChatRef = db.collection("chats").where("email", "array-contains", user.email)
+    const userChatRef = db.collection("chats").where("users", "array-contains", user.email)
+    const usersRef = db.collection("users")
     const [chatsSnapshot] = useCollection(userChatRef)
+    const [usersSnapshot] = useCollection(usersRef)
     const createChat = () => {
         const input = prompt("Enter Email Address");
         if (!input) return;
         
-        if(EmailValidator.validate(input) && !chatAlreadyExists(input) && input!==user.email){
+        if(EmailValidator.validate(input) &&!chatAlreadyExists(input) && input!==user.email){
             //do somethingEmailValidator
             db.collection("chats").add({
                 users: [user.email, input]
@@ -24,8 +27,9 @@ const Sidebar = () => {
         }
             
     }
+    console.log("s", chatsSnapshot)
 
-    const chatAlreadyExists = (recepientEmail) => !!chatsSnapshot?.docs.find(chat => chat.data().users.find(user => user == recepientEmail.lenght() > 0))
+    const chatAlreadyExists = (recepientEmail) => !!chatsSnapshot?.docs.find(chat => chat.data().users.find(user => user == recepientEmail.length() > 0))
     
 
     return(
@@ -46,6 +50,14 @@ const Sidebar = () => {
             <SearchInput placeholder="Search in Chat" />
         </Search>
         <SidebarButton onClick={createChat}>Start a new Chat</SidebarButton>
+
+        {
+            chatsSnapshot?.docs.map(chat => (
+                <Chat key={chat.id} id={chat.id} user={chat?.data().users} />
+            ))
+        }
+
+
     </Container>
     );
 };
