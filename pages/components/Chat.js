@@ -1,10 +1,15 @@
 import styled from "styled-components"
 import { Avatar, IconButton, Button } from "@material-ui/core";
+import getRecepientsEmail from './../api/utils/getRecepientsEmail';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from "../../firebase"
+const Chat = ({id, users}) => {
+    const [user] = useAuthState(auth)
+    const recepientEmail = getRecepientsEmail(users, user)
 
-const Chat = () => {
     return ( <Container> 
             <UserAvatar />
-            <p>Recepient Email</p>
+            <UserName>{recepientEmail}</UserName>
         </Container>);
 }
  
@@ -23,4 +28,8 @@ const UserAvatar = styled(Avatar)`
     cursor: pointer;
     margin: 5px;
     margin-right: 15px;
+`;
+
+const UserName = styled.p`
+    font-family: Arial, Helvetica, sans-serif;
 `;
